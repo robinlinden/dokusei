@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service ToxAPI {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+message CreateRequest {}
+message CreateResponse {
+  uint64 id = 1;
+}
+
+message DeleteRequest {
+  uint64 id = 1;
+}
+message DeleteResponse {}
