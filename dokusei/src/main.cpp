@@ -1,30 +1,19 @@
+#include "dokusei/toxxx/tox.h"
+
 #include <grpcpp/security/server_credentials.h>
 #include <grpcpp/server.h>
 #include <grpcpp/server_builder.h>
 #include <proto/tox.grpc.pb.h>
-#include <tox/tox.h>
 
-#include <array>
-#include <cstdint>
 #include <iostream>
 #include <memory>
 #include <numeric>
 #include <string>
-#include <utility>
 #include <vector>
 
-namespace {
-struct ToxDeleter {
-    void operator()(Tox *const t) {
-        tox_kill(t);
-    }
-};
+using namespace dokusei;
 
-struct ToxOptionsDeleter {
-    void operator()(Tox_Options *const o) {
-        tox_options_free(o);
-    }
-};
+namespace {
 
 class ToxService final : public ToxAPI::Service {
 public:
@@ -32,16 +21,8 @@ public:
             grpc::ServerContext *context,
             const CreateRequest *request,
             CreateResponse *response) override {
-        std::unique_ptr<Tox_Options, ToxOptionsDeleter> opts{tox_options_new(nullptr), ToxOptionsDeleter{}};
-        if (!opts) return grpc::Status::CANCELLED;
-
-        std::unique_ptr<Tox, ToxDeleter> tox{tox_new(opts.get(), nullptr), ToxDeleter{}};
-        if (!tox) return grpc::Status::CANCELLED;
-
-        std::array<uint8_t, TOX_ADDRESS_SIZE> addr{};
-        tox_self_get_address(tox.get(), addr.data());
-
-        toxii.push_back(std::move(tox));
+        const auto &tox = toxii.emplace_back();
+        const auto addr{tox.get_address()};
 
         const auto id = std::accumulate(begin(addr), end(addr), 0);
         std::cout << "Created Tox instance " << id << "." << '\n';
@@ -55,8 +36,7 @@ public:
             const DeleteRequest *request,
             DeleteResponse *response) override {
         auto tox = std::find_if(begin(toxii), end(toxii), [&](const auto &t) {
-            std::array<uint8_t, TOX_ADDRESS_SIZE> addr{};
-            tox_self_get_address(t.get(), addr.data());
+            const auto addr{t.get_address()};
             const auto id = std::accumulate(begin(addr), end(addr), 0);
             return id == request->id();
         });
@@ -73,15 +53,13 @@ public:
     }
 
 private:
-    std::vector<std::unique_ptr<Tox, ToxDeleter>> toxii;
+    std::vector<toxxx::Toxxx> toxii;
 };
 } // namespace
 
 int main() {
     std::cout << "Linked against Tox "
-            << tox_version_major() << "."
-            << tox_version_minor() << "."
-            << tox_version_patch() << "."
+            << toxxx::toxcore_version()
             << std::endl;
 
     const std::string server_address{"0.0.0.0:50051"};
