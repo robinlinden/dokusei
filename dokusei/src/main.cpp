@@ -1,4 +1,5 @@
 #include "dokusei/toxxx/tox.h"
+#include "dokusei/platform/platform.h"
 
 #include <grpcpp/security/server_credentials.h>
 #include <grpcpp/server.h>
@@ -9,6 +10,7 @@
 #include <memory>
 #include <numeric>
 #include <string>
+#include <thread>
 #include <vector>
 
 using namespace dokusei;
@@ -70,5 +72,11 @@ int main() {
     builder.RegisterService(&service);
     std::unique_ptr<grpc::Server> server{builder.BuildAndStart()};
     std::cout << "Server listening on " << server_address << "." << std::endl;
-    server->Wait();
+
+    platform::set_ctrl_c_handler([&] {
+        std::cout << "Shutting down!" << std::endl;
+        server->Shutdown();
+    });
+
+    std::thread([&] { server->Wait(); }).join();
 }

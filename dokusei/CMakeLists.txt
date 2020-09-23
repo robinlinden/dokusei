@@ -15,6 +15,7 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+        dokusei::platform
         dokusei::toxxx
         libprotobuf
         grpc++_reflection
