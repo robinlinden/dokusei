@@ -1,31 +1,14 @@
 project(dokusei)
 
-include(grpc_generate_cpp)
-grpc_generate_cpp(SRCS HDRS proto/tox.proto)
-
 add_executable(${PROJECT_NAME}
     src/main.cpp
-    ${SRCS}
-)
-
-target_include_directories(${PROJECT_NAME}
-    PRIVATE
-        ${CMAKE_BINARY_DIR}/gen/
 )
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+        dokusei::grpc
         dokusei::platform
         dokusei::toxxx
-        libprotobuf
-        grpc++_reflection
-)
-
-target_compile_options(${PROJECT_NAME}
-    PRIVATE
-        $<$<CXX_COMPILER_ID:GNU>:
-            -Wno-deprecated-declarations; # Protobuf has lots of these in its headers.
-        >
 )
 
 target_compile_features(${PROJECT_NAME}
