@@ -26,6 +26,7 @@ void set_ctrl_c_handler(std::function<void()> handler) {
 
     a.sa_handler = signal_handler;
     a.sa_flags = 0;
+    sigemptyset(&a.sa_mask);
     sigaction(SIGINT, &a, NULL);
 }
 
