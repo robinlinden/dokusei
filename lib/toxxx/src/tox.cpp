@@ -3,6 +3,7 @@
 #include <tox/tox.h>
 
 #include <sstream>
+#include <utility>
 
 namespace dokusei::toxxx {
 
@@ -24,12 +25,11 @@ Toxxx::~Toxxx() {
     if (tox_ != nullptr) tox_kill(tox_);
 }
 
-Toxxx::Toxxx(Toxxx &&o) noexcept : tox_{o.tox_} {
-    o.tox_ = nullptr;
+Toxxx::Toxxx(Toxxx &&o) noexcept : tox_{std::exchange(o.tox_, tox_new(nullptr, nullptr))} {
 }
 
 Toxxx &Toxxx::operator=(Toxxx &&o) noexcept {
-    tox_ = std::exchange(o.tox_, nullptr);
+    tox_ = std::exchange(o.tox_, tox_);
     return *this;
 }
 

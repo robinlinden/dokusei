@@ -1,18 +1,16 @@
-project(dokusei_toxxx)
+project(test_dokusei_toxxx)
 
-add_library(${PROJECT_NAME}
-    src/tox.cpp
-)
-add_library(dokusei::toxxx ALIAS ${PROJECT_NAME})
+include(Catch)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-        include/
+add_executable(${PROJECT_NAME}
+    src/main.cpp
+    src/test_tox.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-        toxcore
+        dokusei::toxxx
+        Catch2::Catch2
 )
 
 target_compile_features(${PROJECT_NAME}
@@ -27,4 +25,4 @@ set_target_properties(${PROJECT_NAME}
         CXX_EXTENSIONS NO
 )
 
-add_subdirectory(test)
+catch_discover_tests(${PROJECT_NAME})
