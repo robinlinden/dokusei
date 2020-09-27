@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
         dokusei::toxxx
+        dokusei::warning
         Catch2::Catch2
 )
 

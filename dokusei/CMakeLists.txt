@@ -9,6 +9,7 @@ target_link_libraries(${PROJECT_NAME}
         dokusei::grpc
         dokusei::platform
         dokusei::toxxx
+        dokusei::warning
 )
 
 target_compile_features(${PROJECT_NAME}

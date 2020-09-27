@@ -15,14 +15,8 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
         dokusei::proto
         dokusei::toxxx
+        dokusei::warning::low
         grpc++_reflection
-)
-
-target_compile_options(${PROJECT_NAME}
-    PRIVATE
-        $<$<CXX_COMPILER_ID:GNU>:
-            -Wno-deprecated-declarations; # Protobuf has lots of these in its headers.
-        >
 )
 
 target_compile_features(${PROJECT_NAME}

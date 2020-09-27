@@ -17,4 +17,15 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC
         grpc++_reflection
         libprotobuf
+    PRIVATE
+        dokusei::warning::low
+)
+
+target_compile_options(${PROJECT_NAME}
+    PUBLIC
+        $<$<CXX_COMPILER_ID:GNU>:
+            # Protobuf has lots of these in its headers.
+            # PR fixing them: https://github.com/protocolbuffers/protobuf/pull/7180
+            -Wno-deprecated-declarations;
+        >
 )
