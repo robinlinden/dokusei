@@ -1,26 +1,20 @@
 project(dokusei_grpc)
 
-include(grpc_generate_cpp)
-grpc_generate_cpp(SRCS HDRS proto/tox.proto)
-
 add_library(${PROJECT_NAME}
     src/server_factory.cpp
     src/tox_service.cpp
-    ${SRCS}
 )
 add_library(dokusei::grpc ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         include/
-    PRIVATE
-        ${CMAKE_BINARY_DIR}/gen/
 )
 
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+        dokusei::proto
         dokusei::toxxx
-        libprotobuf
         grpc++_reflection
 )
 

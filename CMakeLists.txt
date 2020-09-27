@@ -11,5 +11,6 @@ enable_testing()
 
 add_subdirectory(lib/grpc)
 add_subdirectory(lib/platform)
+add_subdirectory(lib/proto)
 add_subdirectory(lib/toxxx)
 add_subdirectory(dokusei)
