@@ -12,6 +12,7 @@ target_compile_options(${PROJECT_NAME} INTERFACE
         -Wextra;
         -Wformat=2;
         -Wmissing-declarations;
+        # -Wno-unused-parameter;
         -Wnon-virtual-dtor;
         -Wnull-dereference;
         -Wold-style-cast;
@@ -33,6 +34,7 @@ target_compile_options(dokusei_warning_low INTERFACE
         -Wextra;
         -Wformat=2;
         -Wmissing-declarations;
+        -Wno-unused-parameter;
         # -Wnon-virtual-dtor;
         -Wnull-dereference;
         -Woverloaded-virtual;
