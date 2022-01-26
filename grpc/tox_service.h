@@ -3,7 +3,7 @@
 
 #include "dokusei/toxxx/tox.h"
 
-#include <proto/tox.grpc.pb.h>
+#include "proto/tox.grpc.pb.h"
 
 #include <vector>
 
