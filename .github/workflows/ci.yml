@@ -1,0 +1,139 @@
+on: [push, pull_request]
+name: ci
+jobs:
+  linux-ci:
+    name: linux-${{ matrix.name }}
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # TODO(robinlinden): Deal with warnings.
+          # - name: gcc-11
+          #   compiler: gcc
+          #   version: 11
+          #   bazel: --config gcc11
+          #   apt: g++-11
+
+          - name: clang-12
+            compiler: clang
+            version: 12
+            bazel: --config gnulike --run_under="valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 --track-origins=yes --show-leak-kinds=all"
+            apt: valgrind
+
+          - name: clang-13
+            compiler: clang
+            version: 13
+            bazel: --config gnulike
+
+          - name: clang-asan
+            compiler: clang
+            version: 13
+            bazel: --config gnulike --config asan
+
+          # TODO(robinlinden):
+          #   external/com_google_absl/absl/strings/_objs/strings/numbers.pic.o:numbers.cc:function
+          #   absl::lts_20211102::operator*(absl::lts_20211102::int128,
+          #   absl::lts_20211102::int128): error: undefined reference to
+          #   '__muloti4'
+          # - name: clang-ubsan
+          #   compiler: clang
+          #   version: 13
+          #   bazel: --config gnulike --config ubsan
+
+          - name: clang-libc++
+            compiler: clang
+            version: 13
+            bazel: --config gnulike --config libc++
+            apt: libc++abi-13-dev libc++-13-dev
+
+    steps:
+    - name: Prepare gcc install
+      if: startsWith(matrix.compiler, 'gcc') && matrix.version == 11
+      run: sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    - name: Prepare clang install
+      if: startsWith(matrix.compiler, 'clang') && matrix.version == 13
+      uses: myci-actions/add-deb-repo@10
+      with:
+        repo: deb http://apt.llvm.org/focal/ llvm-toolchain-focal-${{ matrix.version }} main
+        repo-name: llvm-toolchain-focal-${{ matrix.version }}
+        keys-asc: https://apt.llvm.org/llvm-snapshot.gpg.key
+    - name: Setup gcc
+      if: startsWith(matrix.compiler, 'gcc')
+      run: |
+        echo "CC=gcc-${{ matrix.version }}" >> $GITHUB_ENV
+        echo "CXX=g++-${{ matrix.version }}" >> $GITHUB_ENV
+    - name: Setup clang
+      if: startsWith(matrix.compiler, 'clang')
+      run: |
+        echo "CC=clang-${{ matrix.version }}" >> $GITHUB_ENV
+        echo "CXX=clang++-${{ matrix.version }}" >> $GITHUB_ENV
+    - uses: actions/checkout@v2
+    - name: Install
+      run: |
+        sudo apt update
+        sudo apt install ${{ matrix.compiler }}-${{ matrix.version }} ${{ matrix.apt }}
+    - uses: actions/cache@v2
+      with:
+        path: ~/.cache/bazel
+        key: ${{ matrix.name }}-${{ hashFiles('WORKSPACE', 'third_party/**') }}
+        restore-keys: ${{ matrix.name }}-
+    - name: Build and test
+      run: bazel test ... ${{ matrix.bazel }}
+
+  # TODO(robinlinden): Deal with warnings.
+  # linux-gcc-10-coverage:
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: actions/cache@v2
+  #     with:
+  #       path: ~/.cache/bazel
+  #       key: ${{ matrix.name }}-${{ hashFiles('WORKSPACE', 'third_party/**') }}
+  #       restore-keys: ${{ matrix.name }}-
+  #   - name: Install
+  #     run: |
+  #       sudo apt update
+  #       sudo apt install lcov
+  #   - name: Setup
+  #     run: |
+  #       echo "CC=gcc-10" >> $GITHUB_ENV
+  #       echo "CXX=g++-10" >> $GITHUB_ENV
+  #   - name: Coverage
+  #     run: bazel coverage --combined_report=lcov --config=gcc ...
+  #   - name: Summary
+  #     run: lcov --summary bazel-out/_coverage/_coverage_report.dat
+  #   - name: Upload
+  #     run: bash <(curl -s https://codecov.io/bash) -f bazel-out/_coverage/_coverage_report.dat
+
+  windows-msvc:
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and test
+      run: bazel test ... --config msvc -c dbg
+
+  # TODO(robinlinden): Set up clang-format.
+  # clang-format:
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Format
+  #     run: find . -name *.h -o -name *.cpp | xargs clang-format-12 -style=file -i
+  #   - name: Check
+  #     run: git diff --exit-code
+
+  buildifier:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install
+      run: |
+        wget --output-document=buildifier https://github.com/bazelbuild/buildtools/releases/download/4.2.5/buildifier-linux-amd64
+        sudo chmod +x buildifier
+    - name: Check
+      run: ./buildifier --lint=warn --warnings=all -mode diff WORKSPACE $(find . -type f -iname *.BUILD -or -iname BUILD)
