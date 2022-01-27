@@ -18,6 +18,7 @@ static_assert(kAddressSize == TOX_ADDRESS_SIZE);
 Toxxx::Toxxx() : tox_{[] {
     auto *const tox_options{tox_options_new(nullptr)};
     auto *const tox{tox_new(tox_options, nullptr)};
+    tox_options_free(tox_options);
     return tox;
 }()} {}
 
