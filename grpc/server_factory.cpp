@@ -24,6 +24,14 @@ public:
         server_->Wait();
     }
 
+    void wait() override {
+        server_->Wait();
+    }
+
+    void shutdown() override {
+        server_->Shutdown();
+    }
+
 private:
     std::string address_;
     ToxService tox_service_{};
