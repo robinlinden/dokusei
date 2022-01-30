@@ -88,10 +88,10 @@ build:msvc --copt='/W4' # More warnings.
 build:msvc --copt='/WX' # Treat warnings as errors.
 
 # gRPC leaks these into our code.
+build:msvc --per_file_copt='dokusei[:/]@/wd4127' # C4127: conditional expression is constant
+build:msvc --per_file_copt='dokusei[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
 build:msvc --per_file_copt='grpc[:/]@/wd4127' # C4127: conditional expression is constant
 build:msvc --per_file_copt='grpc[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
-
-# gRPC leaks these into our code.
 build:msvc --per_file_copt='proto[:/]@/wd4127' # C4127: conditional expression is constant
 build:msvc --per_file_copt='proto[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
 
