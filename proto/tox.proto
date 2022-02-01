@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package dokusei.proto;
+
 service ToxAPI {
   rpc Create(CreateRequest) returns (CreateResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);

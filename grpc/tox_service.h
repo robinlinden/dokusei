@@ -9,17 +9,17 @@
 
 namespace dokusei::grpc {
 
-class ToxService final : public ToxAPI::Service {
+class ToxService final : public proto::ToxAPI::Service {
 public:
     ::grpc::Status Create(
             ::grpc::ServerContext *context,
-            const CreateRequest *request,
-            CreateResponse *response) override;
+            const proto::CreateRequest *request,
+            proto::CreateResponse *response) override;
 
     ::grpc::Status Delete(
             ::grpc::ServerContext *context,
-            const DeleteRequest *request,
-            DeleteResponse *response) override;
+            const proto::DeleteRequest *request,
+            proto::DeleteResponse *response) override;
 
 private:
     std::vector<toxxx::Toxxx> toxii_;

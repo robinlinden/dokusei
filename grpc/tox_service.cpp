@@ -8,8 +8,8 @@ namespace dokusei::grpc {
 
 ::grpc::Status ToxService::Create(
         ::grpc::ServerContext */*context*/,
-        const CreateRequest */*request*/,
-        CreateResponse *response) {
+        const proto::CreateRequest */*request*/,
+        proto::CreateResponse *response) {
     const auto &tox = toxii_.emplace_back();
     const auto addr{tox.get_address()};
 
@@ -22,8 +22,8 @@ namespace dokusei::grpc {
 
 ::grpc::Status ToxService::Delete(
         ::grpc::ServerContext */*context*/,
-        const DeleteRequest *request,
-        DeleteResponse */*response*/) {
+        const proto::DeleteRequest *request,
+        proto::DeleteResponse */*response*/) {
     auto tox = std::find_if(begin(toxii_), end(toxii_), [&](const auto &t) {
         const auto addr{t.get_address()};
         const auto id = std::accumulate(begin(addr), end(addr), 0ULL);

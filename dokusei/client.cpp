@@ -10,15 +10,18 @@
 #include <memory>
 #include <utility>
 
+namespace dokusei {
+namespace {
+
 class ToxApiClient {
 public:
     ToxApiClient(std::shared_ptr<grpc::Channel> channel)
-            : stub_{ToxAPI::NewStub(std::move(channel))} {}
+            : stub_{proto::ToxAPI::NewStub(std::move(channel))} {}
 
     std::uint64_t create() {
         grpc::ClientContext context;
-        CreateResponse create_response;
-        auto status = stub_->Create(&context, CreateRequest{}, &create_response);
+        proto::CreateResponse create_response;
+        auto status = stub_->Create(&context, proto::CreateRequest{}, &create_response);
         if (!status.ok()) {
             std::cout << "Failed to create Tox: " << status.error_message() << '\n';
             std::abort();
@@ -29,19 +32,22 @@ public:
 
     void kill(std::uint64_t id) {
         grpc::ClientContext context;
-        DeleteRequest delete_request;
+        proto::DeleteRequest delete_request;
         delete_request.set_id(id);
-        DeleteResponse delete_response;
+        proto::DeleteResponse delete_response;
         stub_->Delete(&context, delete_request, &delete_response);
     }
 
 private:
-    std::unique_ptr<ToxAPI::Stub> stub_;
+    std::unique_ptr<proto::ToxAPI::Stub> stub_;
 };
+
+} // namespace
+} // namespace dokusei
 
 int main() {
     auto channel = grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials());
-    ToxApiClient client{std::move(channel)};
+    dokusei::ToxApiClient client{std::move(channel)};
 
     auto id = client.create();
     std::cout << "Created Tox with ID " << id << '\n';
