@@ -28,6 +28,11 @@ TEST_CASE("Toxxx") {
         REQUIRE(t3.get_address() == addr2);
         REQUIRE(t1.get_address() != addr2);
     }
+
+    SECTION("Can be saved and loaded") {
+        toxxx::Toxxx loaded{{toxxx::Savedata::Type::ToxSave, t1.get_savedata()}};
+        REQUIRE(t1.get_address() == loaded.get_address());
+    }
 }
 
 }
