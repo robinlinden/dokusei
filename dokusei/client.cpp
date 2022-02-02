@@ -16,7 +16,7 @@ namespace {
 class ToxApiClient {
 public:
     ToxApiClient(std::shared_ptr<grpc::Channel> channel)
-            : stub_{proto::ToxAPI::NewStub(std::move(channel))} {}
+            : stub_{proto::ToxApi::NewStub(std::move(channel))} {}
 
     std::uint64_t create() {
         grpc::ClientContext context;
@@ -39,7 +39,7 @@ public:
     }
 
 private:
-    std::unique_ptr<proto::ToxAPI::Stub> stub_;
+    std::unique_ptr<proto::ToxApi::Stub> stub_;
 };
 
 } // namespace

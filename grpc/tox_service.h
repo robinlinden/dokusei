@@ -9,7 +9,7 @@
 
 namespace dokusei::grpc {
 
-class ToxService final : public proto::ToxAPI::Service {
+class ToxService final : public proto::ToxApi::Service {
 public:
     ::grpc::Status Create(
             ::grpc::ServerContext *context,
