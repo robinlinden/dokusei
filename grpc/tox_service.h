@@ -21,6 +21,11 @@ public:
             const proto::DeleteRequest *request,
             proto::DeleteResponse *response) override;
 
+    ::grpc::Status GetSavedata(
+            ::grpc::ServerContext *,
+            proto::GetSavedataRequest const *,
+            proto::GetSavedataResponse *) override;
+
 private:
     std::vector<toxxx::Toxxx> toxii_;
 };

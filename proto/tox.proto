@@ -2,12 +2,26 @@ syntax = "proto3";
 
 package dokusei.proto;
 
+message ToxOptions {
+  enum SavedataType {
+    UNKNOWN = 0;
+    NONE = 1;
+    TOX_SAVE = 2;
+    SECRET_KEY = 3;
+  }
+  SavedataType savedata_type = 1;
+  bytes savedata = 2;
+}
+
 service ToxApi {
   rpc Create(CreateRequest) returns (CreateResponse);
   rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc GetSavedata(GetSavedataRequest) returns (GetSavedataResponse);
 }
 
-message CreateRequest {}
+message CreateRequest {
+  ToxOptions options = 1;
+}
 message CreateResponse {
   uint64 id = 1;
 }
@@ -16,3 +30,10 @@ message DeleteRequest {
   uint64 id = 1;
 }
 message DeleteResponse {}
+
+message GetSavedataRequest {
+  uint64 id = 1;
+}
+message GetSavedataResponse {
+  bytes data = 1;
+}
