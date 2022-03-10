@@ -74,6 +74,9 @@ build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unknown-pragmas'
 build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-function'
 build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-parameter'
 build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-variable'
+build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-double-promotion'
+build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-gnu-case-range'
+build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-undef'
 build:gnulike --per_file_copt='external/toxcore[:/]@-Wno-sign-compare'
 build:gnulike --per_file_copt='external/toxcore[:/]@-Wno-unused-parameter'
 build:gnulike --per_file_copt='external/upb[:/]@-Wno-c99-extensions'
@@ -173,6 +176,7 @@ build:msvc --per_file_copt='external/toxcore[:/]@/wd4245' # C4245: 'return': con
 build:msvc --per_file_copt='external/toxcore[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'uint16_t', possible loss of data
 build:msvc --per_file_copt='external/toxcore[:/]@/wd4310' # C4310: cast truncates constant value
 build:msvc --per_file_copt='external/toxcore[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
+build:msvc --per_file_copt='external/toxcore[:/]@/wd4702' # C4702: unreachable code
 build:msvc --per_file_copt='external/upb[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
 build:msvc --per_file_copt='external/upb[:/]@/wd4100' # C4100: 'subs': unreferenced formal parameter
 build:msvc --per_file_copt='external/upb[:/]@/wd4116' # C4116: unnamed type definition in parentheses
