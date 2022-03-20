@@ -79,8 +79,8 @@ jobs:
         path: ~/.cache/bazel
         key: ${{ matrix.name }}-${{ hashFiles('WORKSPACE', 'third_party/**') }}
         restore-keys: ${{ matrix.name }}-
-    - name: Build and test
-      run: bazel test ... ${{ matrix.bazel }}
+    - name: Build
+      run: bazel build ... ${{ matrix.bazel }}
 
   # TODO(robinlinden): Deal with warnings.
   # linux-gcc-10-coverage:
@@ -114,8 +114,8 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v2
-    - name: Build and test
-      run: bazel test ... --config msvc -c dbg
+    - name: Build
+      run: bazel build ... --config msvc -c dbg
 
   # TODO(robinlinden): Set up clang-format.
   # clang-format:

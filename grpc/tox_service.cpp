@@ -7,17 +7,17 @@
 namespace dokusei::grpc {
 namespace {
 
-toxxx::Savedata::Type into(proto::ToxOptions_SavedataType type) {
+cctc::Savedata::Type into(proto::ToxOptions_SavedataType type) {
     switch (type) {
         case proto::ToxOptions_SavedataType_UNKNOWN:
         case proto::ToxOptions_SavedataType_NONE:
-            return toxxx::Savedata::Type::None;
+            return cctc::Savedata::Type::None;
         case proto::ToxOptions_SavedataType_TOX_SAVE:
-            return toxxx::Savedata::Type::ToxSave;
+            return cctc::Savedata::Type::ToxSave;
         case proto::ToxOptions_SavedataType_SECRET_KEY:
-            return toxxx::Savedata::Type::ToxSave;
+            return cctc::Savedata::Type::ToxSave;
         default:
-            return toxxx::Savedata::Type::None;
+            return cctc::Savedata::Type::None;
     }
 }
 
@@ -40,10 +40,11 @@ bool option_requires_savedata(proto::ToxOptions_SavedataType type) {
 
     auto const &savedata = options.savedata();
     const auto &tox = toxii_.emplace_back(
-            toxxx::Savedata{into(options.savedata_type()), {begin(savedata), end(savedata)}});
-    const auto addr{tox.get_address()};
+            cctc::Savedata{into(options.savedata_type()), {begin(savedata), end(savedata)}});
+    const auto addr{tox.self_get_address()};
+    const auto addr_bytes = addr.bytes();
 
-    const auto id = std::accumulate(begin(addr), end(addr), 0);
+    const auto id = std::accumulate(begin(addr_bytes), end(addr_bytes), 0);
     std::cout << "Created Tox instance " << id << '\n';
     std::cout << "Now have " << toxii_.size() << " toxii." << std::endl;
     response->set_id(id);
@@ -55,8 +56,10 @@ bool option_requires_savedata(proto::ToxOptions_SavedataType type) {
         const proto::DeleteRequest *request,
         proto::DeleteResponse */*response*/) {
     auto tox = std::find_if(begin(toxii_), end(toxii_), [&](const auto &t) {
-        const auto addr{t.get_address()};
-        const auto id = std::accumulate(begin(addr), end(addr), 0ULL);
+        const auto addr{t.self_get_address()};
+        const auto addr_bytes = addr.bytes();
+
+        const auto id = std::accumulate(begin(addr_bytes), end(addr_bytes), 0ULL);
         return id == request->id();
     });
 
@@ -76,8 +79,9 @@ bool option_requires_savedata(proto::ToxOptions_SavedataType type) {
         proto::GetSavedataRequest const *request,
         proto::GetSavedataResponse *response) {
     auto tox = std::find_if(begin(toxii_), end(toxii_), [&](const auto &t) {
-        const auto addr{t.get_address()};
-        const auto id = std::accumulate(begin(addr), end(addr), 0ULL);
+        const auto addr{t.self_get_address()};
+        const auto addr_bytes = addr.bytes();
+        const auto id = std::accumulate(begin(addr_bytes), end(addr_bytes), 0ULL);
         return id == request->id();
     });
 

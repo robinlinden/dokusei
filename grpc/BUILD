@@ -8,7 +8,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "//proto",
-        "//toxxx",
+        "@cctc",
         "@com_github_grpc_grpc//:grpc++",
     ],
 )

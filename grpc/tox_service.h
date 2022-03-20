@@ -1,11 +1,11 @@
 #ifndef DOKUSEI_GRPC_TOX_SERVICE_H
 #define DOKUSEI_GRPC_TOX_SERVICE_H
 
-#include "dokusei/toxxx/tox.h"
-
 #include "proto/tox.grpc.pb.h"
 
-#include <vector>
+#include "cctc/tox.h"
+
+#include <list>
 
 namespace dokusei::grpc {
 
@@ -27,7 +27,7 @@ public:
             proto::GetSavedataResponse *) override;
 
 private:
-    std::vector<toxxx::Toxxx> toxii_;
+    std::list<cctc::Tox> toxii_;
 };
 
 } // namespace dokusei::grpc

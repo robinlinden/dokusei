@@ -16,6 +16,16 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_proto/archive/4.0.0.tar.gz",
 )
 
+# First-party
+# =========================================================
+
+http_archive(
+    name = "cctc",  # GPL-3-only
+    sha256 = "f285f47464845bd67e9da78d909ff517ab8ae6e7615017bbf2bdc54fc1b40b96",
+    strip_prefix = "cctc-2fab52c77d4b0934be332ebb4f9d4bc26d8a9c8d",
+    url = "https://github.com/robinlinden/cctc/archive/2fab52c77d4b0934be332ebb4f9d4bc26d8a9c8d.tar.gz",
+)
+
 # Third-party
 # =========================================================
 

@@ -6,7 +6,7 @@ cc_binary(
     deps = [
         "//grpc",
         "//platform",
-        "//toxxx",
+        "@cctc",
     ],
 )
 
