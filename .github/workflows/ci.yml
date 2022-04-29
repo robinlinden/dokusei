@@ -19,18 +19,17 @@ jobs:
           - name: clang-12
             compiler: clang
             version: 12
-            bazel: --config gnulike --run_under="valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 --track-origins=yes --show-leak-kinds=all"
+            bazel: --run_under="valgrind --leak-check=full --errors-for-leak-kinds=all --error-exitcode=1 --track-origins=yes --show-leak-kinds=all"
             apt: valgrind
 
           - name: clang-13
             compiler: clang
             version: 13
-            bazel: --config gnulike
 
           - name: clang-asan
             compiler: clang
             version: 13
-            bazel: --config gnulike --config asan
+            bazel: --config asan
 
           # TODO(robinlinden):
           #   external/com_google_absl/absl/strings/_objs/strings/numbers.pic.o:numbers.cc:function
@@ -40,12 +39,12 @@ jobs:
           # - name: clang-ubsan
           #   compiler: clang
           #   version: 13
-          #   bazel: --config gnulike --config ubsan
+          #   bazel: --config ubsan
 
           - name: clang-libc++
             compiler: clang
             version: 13
-            bazel: --config gnulike --config libc++
+            bazel: --config libc++
             apt: libc++abi-13-dev libc++-13-dev
 
     steps:
@@ -113,7 +112,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: bazel build ... --config msvc -c dbg
+      run: bazel build ... -c dbg
 
   # TODO(robinlinden): Set up clang-format.
   # clang-format:

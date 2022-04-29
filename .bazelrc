@@ -1,6 +1,7 @@
 # Bazel configuration
 # =========================================================
 
+build --enable_platform_specific_config
 test --test_output=errors
 test --test_verbose_timeout_warnings
 
@@ -13,193 +14,193 @@ build --incompatible_disallow_empty_glob
 # Compiler configuration
 # =========================================================
 
-build:gnulike --cxxopt='-std=c++20'
+build:linux --cxxopt='-std=c++20'
 
-build:msvc --cxxopt='/std:c++20'
-build:msvc --copt='/permissive-' # Conform to the standard.
+build:windows --cxxopt='/std:c++20'
+build:windows --copt='/permissive-' # Conform to the standard.
 
 # Warnings
 # =========================================================
 
-build:gnulike --copt='-Wall'
-build:gnulike --copt='-Wextra'
-build:gnulike --copt='-pedantic-errors'
-build:gnulike --copt='-Werror'
-build:gnulike --copt='-Wdouble-promotion'
-build:gnulike --copt='-Wformat=2'
-build:gnulike --copt='-Wmissing-declarations'
-build:gnulike --copt='-Wnull-dereference'
-build:gnulike --copt='-Wshadow'
-build:gnulike --copt='-Wsign-compare'
-build:gnulike --copt='-Wundef'
-build:gnulike --copt='-fno-common'
-build:gnulike --cxxopt='-Wnon-virtual-dtor'
-build:gnulike --cxxopt='-Woverloaded-virtual'
-build:gnulike --copt='-Wno-missing-field-initializers' # Common idiom for zeroing members.
+build:linux --copt='-Wall'
+build:linux --copt='-Wextra'
+build:linux --copt='-pedantic-errors'
+build:linux --copt='-Werror'
+build:linux --copt='-Wdouble-promotion'
+build:linux --copt='-Wformat=2'
+build:linux --copt='-Wmissing-declarations'
+build:linux --copt='-Wnull-dereference'
+build:linux --copt='-Wshadow'
+build:linux --copt='-Wsign-compare'
+build:linux --copt='-Wundef'
+build:linux --copt='-fno-common'
+build:linux --cxxopt='-Wnon-virtual-dtor'
+build:linux --cxxopt='-Woverloaded-virtual'
+build:linux --copt='-Wno-missing-field-initializers' # Common idiom for zeroing members.
 
-build:gnulike --per_file_copt='external/boringssl[:/]@-Wno-extra-semi'
-build:gnulike --per_file_copt='external/boringssl[:/]@-Wno-gnu-binary-literal'
-build:gnulike --per_file_copt='external/boringssl[:/]@-Wno-overlength-strings'
-build:gnulike --per_file_copt='external/boringssl[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-c99-extensions'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-double-promotion'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-format-nonliteral'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-format-pedantic'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gcc-compat'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gnu-anonymous-struct'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gnu-zero-variadic-macro-arguments'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-nested-anon-types'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-shadow'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-string-concatenation'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-thread-safety-attributes'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-undef'
-build:gnulike --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-zero-length-array'
-build:gnulike --per_file_copt='external/com_google_absl[:/]@-Wno-double-promotion'
-build:gnulike --per_file_copt='external/com_google_absl[:/]@-Wno-format-nonliteral'
-build:gnulike --per_file_copt='external/com_google_absl[:/]@-Wno-gcc-compat'
-build:gnulike --per_file_copt='external/com_google_protobuf[:/]@-Wno-double-promotion'
-build:gnulike --per_file_copt='external/com_google_protobuf[:/]@-Wno-format-nonliteral'
-build:gnulike --per_file_copt='external/com_google_protobuf[:/]@-Wno-shadow'
-build:gnulike --per_file_copt='external/com_google_protobuf[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-c99-extensions'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-dtor-name'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-format-nonliteral'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-gnu-anonymous-struct'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-nested-anon-types'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-shadow'
-build:gnulike --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-shadow'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-undef'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unknown-pragmas'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-function'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/libsodium[:/]@-Wno-unused-variable'
-build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-double-promotion'
-build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-gnu-case-range'
-build:gnulike --per_file_copt='external/msgpack-c[:/]@-Wno-undef'
-build:gnulike --per_file_copt='external/toxcore[:/]@-Wno-sign-compare'
-build:gnulike --per_file_copt='external/toxcore[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-c99-extensions'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-double-promotion'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-format-nonliteral'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-shadow'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-sign-compare'
-build:gnulike --per_file_copt='external/upb[:/]@-Wno-unused-parameter'
-build:gnulike --per_file_copt='external/zlib[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/boringssl[:/]@-Wno-extra-semi'
+build:linux --per_file_copt='external/boringssl[:/]@-Wno-gnu-binary-literal'
+build:linux --per_file_copt='external/boringssl[:/]@-Wno-overlength-strings'
+build:linux --per_file_copt='external/boringssl[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-c99-extensions'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-double-promotion'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-format-pedantic'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gcc-compat'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gnu-anonymous-struct'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-gnu-zero-variadic-macro-arguments'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-nested-anon-types'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-shadow'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-string-concatenation'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-thread-safety-attributes'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-undef'
+build:linux --per_file_copt='external/com_github_grpc_grpc[:/]@-Wno-zero-length-array'
+build:linux --per_file_copt='external/com_google_absl[:/]@-Wno-double-promotion'
+build:linux --per_file_copt='external/com_google_absl[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/com_google_absl[:/]@-Wno-gcc-compat'
+build:linux --per_file_copt='external/com_google_protobuf[:/]@-Wno-double-promotion'
+build:linux --per_file_copt='external/com_google_protobuf[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/com_google_protobuf[:/]@-Wno-shadow'
+build:linux --per_file_copt='external/com_google_protobuf[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-c99-extensions'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-dtor-name'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-gnu-anonymous-struct'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-nested-anon-types'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-shadow'
+build:linux --per_file_copt='external/com_googlesource_code_re2[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-shadow'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-undef'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-unknown-pragmas'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-unused-function'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/libsodium[:/]@-Wno-unused-variable'
+build:linux --per_file_copt='external/msgpack-c[:/]@-Wno-double-promotion'
+build:linux --per_file_copt='external/msgpack-c[:/]@-Wno-gnu-case-range'
+build:linux --per_file_copt='external/msgpack-c[:/]@-Wno-undef'
+build:linux --per_file_copt='external/toxcore[:/]@-Wno-sign-compare'
+build:linux --per_file_copt='external/toxcore[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/upb[:/]@-Wno-c99-extensions'
+build:linux --per_file_copt='external/upb[:/]@-Wno-double-promotion'
+build:linux --per_file_copt='external/upb[:/]@-Wno-format-nonliteral'
+build:linux --per_file_copt='external/upb[:/]@-Wno-shadow'
+build:linux --per_file_copt='external/upb[:/]@-Wno-sign-compare'
+build:linux --per_file_copt='external/upb[:/]@-Wno-unused-parameter'
+build:linux --per_file_copt='external/zlib[:/]@-Wno-format-nonliteral'
 
-build:msvc --copt='/W4' # More warnings.
-build:msvc --copt='/WX' # Treat warnings as errors.
+build:windows --copt='/W4' # More warnings.
+build:windows --copt='/WX' # Treat warnings as errors.
 
 # gRPC leaks these into our code.
-build:msvc --per_file_copt='dokusei[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='dokusei[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
-build:msvc --per_file_copt='grpc[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='grpc[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
-build:msvc --per_file_copt='proto[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
-build:msvc --per_file_copt='proto[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='proto[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
+build:windows --per_file_copt='dokusei[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='dokusei[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
+build:windows --per_file_copt='grpc[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='grpc[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
+build:windows --per_file_copt='proto[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
+build:windows --per_file_copt='proto[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='proto[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
 
-build:msvc --per_file_copt='external/boringssl[:/]@/wd4100' # C4100: 'out_public_key': unreferenced formal parameter
-build:msvc --per_file_copt='external/boringssl[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/boringssl[:/]@/wd4244' # C4244: '=': conversion from 'unsigned int' to 'uint8_t', possible loss of data
-build:msvc --per_file_copt='external/boringssl[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/boringssl[:/]@/wd4706' # C4706: assignment within conditional expression
-build:msvc --per_file_copt='external/com_github_cares_cares[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4018' # C4018: '<=': signed/unsigned mismatch
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4100' # C4100: 'flags': unreferenced formal parameter
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4245' # C4245: 'argument': conversion from 'int' to 'uint32_t', signed/unsigned mismatch
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'ULONG', possible loss of data
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4312' # C4312: 'reinterpret_cast': conversion from 'uint32_t' to 'void *' of greater size
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4324' # C4324: 'absl::lts_20211102::container_internal::AlignedType<8>': structure was padded due to alignment specifier
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4456' # C4456: declaration of 'it' hides previous local declaration
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4457' # C4457: declaration of 'cluster' hides function parameter
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4458' # C4458: declaration of 'limits' hides class member
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4459' # C4459: declaration of 'vtable' hides global declaration
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4700' # C4700: uninitialized local variable 'slice' used
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4701' # C4701: potentially uninitialized local variable 'result' used
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'rm' used
-build:msvc --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4706' # C4706: assignment within conditional expression
-build:msvc --per_file_copt='external/com_google_absl[:/]@/wd4244' # C4244: 'return': conversion from 'double' to 'int64_t', possible loss of data
-build:msvc --per_file_copt='external/com_google_googleapis[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
-build:msvc --per_file_copt='external/com_google_googleapis[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
-build:msvc --per_file_copt='external/com_google_googleapis[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/com_google_googleapis[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4100' # C4100: 'loc': unreferenced formal parameter
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4310' # C4310: cast truncates constant value
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4389' # C4389: '==': signed/unsigned mismatch
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4456' # C4456: declaration of 'output' hides previous local declaration
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4457' # C4457: declaration of 'field' hides function parameter
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4701' # C4701: potentially uninitialized local variable 'to_use' used
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'to_use' used
-build:msvc --per_file_copt='external/com_google_protobuf[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4100' # C4100: 'stop': unreferenced formal parameter
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4201' # C4201: nonstandard extension used: nameless struct/union
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4244' # C4244: '=': conversion from 'int' to 'T', possible loss of data
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4456' # C4456: declaration of 'it' hides previous local declaration
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4457' # C4457: declaration of 'sub' hides function parameter
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4815' # C4815: 'state': zero-sized array in stack object will have no elements (unless the object is an aggregate that has been aggregate initialized)
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4100' # C4100: 'len': unreferenced formal parameter
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4197' # C4197: 'volatile const unsigned char *volatile ': top-level volatile in cast is ignored
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4244' # C4244: '=': conversion from 'int64_t' to 'unsigned char', possible loss of data
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4245' # C4245: '=': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4456' # C4456: declaration of 'in8' hides previous local declaration
-build:msvc --per_file_copt='external/libsodium[:/]@/wd4459' # C4459: declaration of 'd' hides global declaration
-build:msvc --per_file_copt='external/pthread[:/]@/wd4057' # C4057: 'function': 'volatile LONG64 *' differs in indirection to slightly different base types from 'volatile size_t *'
-build:msvc --per_file_copt='external/pthread[:/]@/wd4152' # C4152: nonstandard extension, function/data pointer conversion in expression
-build:msvc --per_file_copt='external/pthread[:/]@/wd4310' # C4310: cast truncates constant value
-build:msvc --per_file_copt='external/pthread[:/]@/wd4324' # C4324: 'ptw32_thread_t_': structure was padded due to alignment specifier
-build:msvc --per_file_copt='external/pthread[:/]@/wd4456' # C4456: declaration of 'self' hides previous local declaration
-build:msvc --per_file_copt='external/pthread[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4018' # C4018: '>': signed/unsigned mismatch
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4100' # C4100: 'userdata': unreferenced formal parameter
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4244' # C4244: 'function': conversion from 'int' to 'uint16_t', possible loss of data
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4245' # C4245: 'return': conversion from 'int' to 'uint16_t', signed/unsigned mismatch
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'uint16_t', possible loss of data
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4310' # C4310: cast truncates constant value
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
-build:msvc --per_file_copt='external/toxcore[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/upb[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
-build:msvc --per_file_copt='external/upb[:/]@/wd4100' # C4100: 'subs': unreferenced formal parameter
-build:msvc --per_file_copt='external/upb[:/]@/wd4116' # C4116: unnamed type definition in parentheses
-build:msvc --per_file_copt='external/upb[:/]@/wd4146' # C4146: unary minus operator applied to unsigned type, result still unsigned
-build:msvc --per_file_copt='external/upb[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
-build:msvc --per_file_copt='external/upb[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/upb[:/]@/wd4245' # C4245: 'initializing': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
-build:msvc --per_file_copt='external/upb[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
-build:msvc --per_file_copt='external/upb[:/]@/wd4324' # C4324: '<unnamed-tag>': structure was padded due to alignment specifier
-build:msvc --per_file_copt='external/upb[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-build:msvc --per_file_copt='external/upb[:/]@/wd4389' # C4389: '==': signed/unsigned mismatch
-build:msvc --per_file_copt='external/upb[:/]@/wd4456' # C4456: declaration of 'iter' hides previous local declaration
-build:msvc --per_file_copt='external/upb[:/]@/wd4646' # C4646: function declared with 'noreturn' has non-void return type
-build:msvc --per_file_copt='external/upb[:/]@/wd4701' # C4701: potentially uninitialized local variable 'wire_type' used
-build:msvc --per_file_copt='external/upb[:/]@/wd4702' # C4702: unreachable code
-build:msvc --per_file_copt='external/upb[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'compar' used
-build:msvc --per_file_copt='external/upb[:/]@/wd4706' # C4706: assignment within conditional expression
-build:msvc --per_file_copt='external/upb[:/]@/wd4715' # C4715: 'encode_shouldencode': not all control paths return a value
-build:msvc --per_file_copt='external/zlib[:/]@/wd4127' # C4127: conditional expression is constant
-build:msvc --per_file_copt='external/zlib[:/]@/wd4131' # C4131: 'adler32_z': uses old-style declarator
-build:msvc --per_file_copt='external/zlib[:/]@/wd4244' # C4244: '+=': conversion from 'int' to 'ush', possible loss of data
-build:msvc --per_file_copt='external/zlib[:/]@/wd4245' # C4245: '=': conversion from 'int' to 'unsigned int', signed/unsigned mismatch
-build:msvc --per_file_copt='external/zlib[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/boringssl[:/]@/wd4100' # C4100: 'out_public_key': unreferenced formal parameter
+build:windows --per_file_copt='external/boringssl[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/boringssl[:/]@/wd4244' # C4244: '=': conversion from 'unsigned int' to 'uint8_t', possible loss of data
+build:windows --per_file_copt='external/boringssl[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/boringssl[:/]@/wd4706' # C4706: assignment within conditional expression
+build:windows --per_file_copt='external/com_github_cares_cares[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4018' # C4018: '<=': signed/unsigned mismatch
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4100' # C4100: 'flags': unreferenced formal parameter
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4245' # C4245: 'argument': conversion from 'int' to 'uint32_t', signed/unsigned mismatch
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'ULONG', possible loss of data
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4312' # C4312: 'reinterpret_cast': conversion from 'uint32_t' to 'void *' of greater size
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4324' # C4324: 'absl::lts_20211102::container_internal::AlignedType<8>': structure was padded due to alignment specifier
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4456' # C4456: declaration of 'it' hides previous local declaration
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4457' # C4457: declaration of 'cluster' hides function parameter
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4458' # C4458: declaration of 'limits' hides class member
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4459' # C4459: declaration of 'vtable' hides global declaration
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4700' # C4700: uninitialized local variable 'slice' used
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4701' # C4701: potentially uninitialized local variable 'result' used
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'rm' used
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4706' # C4706: assignment within conditional expression
+build:windows --per_file_copt='external/com_google_absl[:/]@/wd4244' # C4244: 'return': conversion from 'double' to 'int64_t', possible loss of data
+build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
+build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4100' # C4100: 'loc': unreferenced formal parameter
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4310' # C4310: cast truncates constant value
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4389' # C4389: '==': signed/unsigned mismatch
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4456' # C4456: declaration of 'output' hides previous local declaration
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4457' # C4457: declaration of 'field' hides function parameter
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4701' # C4701: potentially uninitialized local variable 'to_use' used
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'to_use' used
+build:windows --per_file_copt='external/com_google_protobuf[:/]@/wd5054' # C5054: operator '*': deprecated between enumerations of different types
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4100' # C4100: 'stop': unreferenced formal parameter
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4201' # C4201: nonstandard extension used: nameless struct/union
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4244' # C4244: '=': conversion from 'int' to 'T', possible loss of data
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4456' # C4456: declaration of 'it' hides previous local declaration
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4457' # C4457: declaration of 'sub' hides function parameter
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4815' # C4815: 'state': zero-sized array in stack object will have no elements (unless the object is an aggregate that has been aggregate initialized)
+build:windows --per_file_copt='external/libsodium[:/]@/wd4100' # C4100: 'len': unreferenced formal parameter
+build:windows --per_file_copt='external/libsodium[:/]@/wd4197' # C4197: 'volatile const unsigned char *volatile ': top-level volatile in cast is ignored
+build:windows --per_file_copt='external/libsodium[:/]@/wd4244' # C4244: '=': conversion from 'int64_t' to 'unsigned char', possible loss of data
+build:windows --per_file_copt='external/libsodium[:/]@/wd4245' # C4245: '=': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
+build:windows --per_file_copt='external/libsodium[:/]@/wd4456' # C4456: declaration of 'in8' hides previous local declaration
+build:windows --per_file_copt='external/libsodium[:/]@/wd4459' # C4459: declaration of 'd' hides global declaration
+build:windows --per_file_copt='external/pthread[:/]@/wd4057' # C4057: 'function': 'volatile LONG64 *' differs in indirection to slightly different base types from 'volatile size_t *'
+build:windows --per_file_copt='external/pthread[:/]@/wd4152' # C4152: nonstandard extension, function/data pointer conversion in expression
+build:windows --per_file_copt='external/pthread[:/]@/wd4310' # C4310: cast truncates constant value
+build:windows --per_file_copt='external/pthread[:/]@/wd4324' # C4324: 'ptw32_thread_t_': structure was padded due to alignment specifier
+build:windows --per_file_copt='external/pthread[:/]@/wd4456' # C4456: declaration of 'self' hides previous local declaration
+build:windows --per_file_copt='external/pthread[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/toxcore[:/]@/wd4018' # C4018: '>': signed/unsigned mismatch
+build:windows --per_file_copt='external/toxcore[:/]@/wd4100' # C4100: 'userdata': unreferenced formal parameter
+build:windows --per_file_copt='external/toxcore[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/toxcore[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/toxcore[:/]@/wd4244' # C4244: 'function': conversion from 'int' to 'uint16_t', possible loss of data
+build:windows --per_file_copt='external/toxcore[:/]@/wd4245' # C4245: 'return': conversion from 'int' to 'uint16_t', signed/unsigned mismatch
+build:windows --per_file_copt='external/toxcore[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'uint16_t', possible loss of data
+build:windows --per_file_copt='external/toxcore[:/]@/wd4310' # C4310: cast truncates constant value
+build:windows --per_file_copt='external/toxcore[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
+build:windows --per_file_copt='external/toxcore[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/upb[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
+build:windows --per_file_copt='external/upb[:/]@/wd4100' # C4100: 'subs': unreferenced formal parameter
+build:windows --per_file_copt='external/upb[:/]@/wd4116' # C4116: unnamed type definition in parentheses
+build:windows --per_file_copt='external/upb[:/]@/wd4146' # C4146: unary minus operator applied to unsigned type, result still unsigned
+build:windows --per_file_copt='external/upb[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/upb[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/upb[:/]@/wd4245' # C4245: 'initializing': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
+build:windows --per_file_copt='external/upb[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/upb[:/]@/wd4324' # C4324: '<unnamed-tag>': structure was padded due to alignment specifier
+build:windows --per_file_copt='external/upb[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
+build:windows --per_file_copt='external/upb[:/]@/wd4389' # C4389: '==': signed/unsigned mismatch
+build:windows --per_file_copt='external/upb[:/]@/wd4456' # C4456: declaration of 'iter' hides previous local declaration
+build:windows --per_file_copt='external/upb[:/]@/wd4646' # C4646: function declared with 'noreturn' has non-void return type
+build:windows --per_file_copt='external/upb[:/]@/wd4701' # C4701: potentially uninitialized local variable 'wire_type' used
+build:windows --per_file_copt='external/upb[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/upb[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'compar' used
+build:windows --per_file_copt='external/upb[:/]@/wd4706' # C4706: assignment within conditional expression
+build:windows --per_file_copt='external/upb[:/]@/wd4715' # C4715: 'encode_shouldencode': not all control paths return a value
+build:windows --per_file_copt='external/zlib[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/zlib[:/]@/wd4131' # C4131: 'adler32_z': uses old-style declarator
+build:windows --per_file_copt='external/zlib[:/]@/wd4244' # C4244: '+=': conversion from 'int' to 'ush', possible loss of data
+build:windows --per_file_copt='external/zlib[:/]@/wd4245' # C4245: '=': conversion from 'int' to 'unsigned int', signed/unsigned mismatch
+build:windows --per_file_copt='external/zlib[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 
 # Special build options
 # =========================================================
