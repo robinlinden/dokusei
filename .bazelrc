@@ -105,12 +105,19 @@ build:windows --per_file_copt='external/boringssl[:/]@/wd4127' # C4127: conditio
 build:windows --per_file_copt='external/boringssl[:/]@/wd4244' # C4244: '=': conversion from 'unsigned int' to 'uint8_t', possible loss of data
 build:windows --per_file_copt='external/boringssl[:/]@/wd4267' # C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 build:windows --per_file_copt='external/boringssl[:/]@/wd4706' # C4706: assignment within conditional expression
+build:windows --per_file_copt='external/com_envoyproxy_protoc_gen_validate[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/com_envoyproxy_protoc_gen_validate[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
 build:windows --per_file_copt='external/com_github_cares_cares[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/com_github_cares_cares[:/]@/wd4701' # C4701: potentially uninitialized local variable 'addr' used
+build:windows --per_file_copt='external/com_github_cncf_udpa[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/com_github_cncf_udpa[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4018' # C4018: '<=': signed/unsigned mismatch
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4100' # C4100: 'flags': unreferenced formal parameter
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4101' # C4101: 'i': unreferenced local variable
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4125' # C4125: decimal digit terminates octal escape sequence
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4127' # C4127: conditional expression is constant
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4146' # C4146: unary minus operator applied to unsigned type, result still unsigned
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4245' # C4245: 'argument': conversion from 'int' to 'uint32_t', signed/unsigned mismatch
@@ -128,6 +135,8 @@ build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4701' # C470
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4702' # C4702: unreachable code
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'rm' used
 build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4706' # C4706: assignment within conditional expression
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4805' # C4805: '==': unsafe mix of type 'int' and type 'bool' in operation
+build:windows --per_file_copt='external/com_github_grpc_grpc[:/]@/wd4834' # C4834: discarding return value of function with 'nodiscard' attribute
 build:windows --per_file_copt='external/com_google_absl[:/]@/wd4244' # C4244: 'return': conversion from 'double' to 'int64_t', possible loss of data
 build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
 build:windows --per_file_copt='external/com_google_googleapis[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
@@ -156,12 +165,17 @@ build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4456' #
 build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4457' # C4457: declaration of 'sub' hides function parameter
 build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4702' # C4702: unreachable code
 build:windows --per_file_copt='external/com_googlesource_code_re2[:/]@/wd4815' # C4815: 'state': zero-sized array in stack object will have no elements (unless the object is an aggregate that has been aggregate initialized)
+build:windows --per_file_copt='external/envoy_api[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/envoy_api[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
 build:windows --per_file_copt='external/libsodium[:/]@/wd4100' # C4100: 'len': unreferenced formal parameter
 build:windows --per_file_copt='external/libsodium[:/]@/wd4197' # C4197: 'volatile const unsigned char *volatile ': top-level volatile in cast is ignored
 build:windows --per_file_copt='external/libsodium[:/]@/wd4244' # C4244: '=': conversion from 'int64_t' to 'unsigned char', possible loss of data
 build:windows --per_file_copt='external/libsodium[:/]@/wd4245' # C4245: '=': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
 build:windows --per_file_copt='external/libsodium[:/]@/wd4456' # C4456: declaration of 'in8' hides previous local declaration
 build:windows --per_file_copt='external/libsodium[:/]@/wd4459' # C4459: declaration of 'd' hides global declaration
+build:windows --per_file_copt='external/opencensus_proto[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/opencensus_proto[:/]@/wd4244' # C4244: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+build:windows --per_file_copt='external/opencensus_proto[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
 build:windows --per_file_copt='external/pthread[:/]@/wd4057' # C4057: 'function': 'volatile LONG64 *' differs in indirection to slightly different base types from 'volatile size_t *'
 build:windows --per_file_copt='external/pthread[:/]@/wd4152' # C4152: nonstandard extension, function/data pointer conversion in expression
 build:windows --per_file_copt='external/pthread[:/]@/wd4310' # C4310: cast truncates constant value
@@ -178,19 +192,24 @@ build:windows --per_file_copt='external/toxcore[:/]@/wd4267' # C4267: 'function'
 build:windows --per_file_copt='external/toxcore[:/]@/wd4310' # C4310: cast truncates constant value
 build:windows --per_file_copt='external/toxcore[:/]@/wd4389' # C4389: '!=': signed/unsigned mismatch
 build:windows --per_file_copt='external/toxcore[:/]@/wd4702' # C4702: unreachable code
+build:windows --per_file_copt='external/upb[:/]@/wd4018' # C4018: '<': signed/unsigned mismatch
 build:windows --per_file_copt='external/upb[:/]@/wd4090' # C4090: 'function': different 'const' qualifiers
 build:windows --per_file_copt='external/upb[:/]@/wd4100' # C4100: 'subs': unreferenced formal parameter
 build:windows --per_file_copt='external/upb[:/]@/wd4116' # C4116: unnamed type definition in parentheses
 build:windows --per_file_copt='external/upb[:/]@/wd4146' # C4146: unary minus operator applied to unsigned type, result still unsigned
 build:windows --per_file_copt='external/upb[:/]@/wd4200' # C4200: nonstandard extension used: zero-sized array in struct/union
+build:windows --per_file_copt='external/upb[:/]@/wd4206' # C4206: nonstandard extension used: translation unit is empty
 build:windows --per_file_copt='external/upb[:/]@/wd4244' # C4244: 'return': conversion from 'int64_t' to 'int', possible loss of data
 build:windows --per_file_copt='external/upb[:/]@/wd4245' # C4245: 'initializing': conversion from 'int' to 'uint64_t', signed/unsigned mismatch
 build:windows --per_file_copt='external/upb[:/]@/wd4267' # C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+build:windows --per_file_copt='external/upb[:/]@/wd4310' # C4310: cast truncates constant value
 build:windows --per_file_copt='external/upb[:/]@/wd4324' # C4324: '<unnamed-tag>': structure was padded due to alignment specifier
 build:windows --per_file_copt='external/upb[:/]@/wd4334' # C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
 build:windows --per_file_copt='external/upb[:/]@/wd4389' # C4389: '==': signed/unsigned mismatch
 build:windows --per_file_copt='external/upb[:/]@/wd4456' # C4456: declaration of 'iter' hides previous local declaration
+build:windows --per_file_copt='external/upb[:/]@/wd4457' # C4457: declaration of 'val' hides function parameter
 build:windows --per_file_copt='external/upb[:/]@/wd4646' # C4646: function declared with 'noreturn' has non-void return type
+build:windows --per_file_copt='external/upb[:/]@/wd4700' # C4700: uninitialized local variable 'ret' used
 build:windows --per_file_copt='external/upb[:/]@/wd4701' # C4701: potentially uninitialized local variable 'wire_type' used
 build:windows --per_file_copt='external/upb[:/]@/wd4702' # C4702: unreachable code
 build:windows --per_file_copt='external/upb[:/]@/wd4703' # C4703: potentially uninitialized local pointer variable 'compar' used
