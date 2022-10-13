@@ -38,9 +38,9 @@ http_archive(
 
 http_archive(
     name = "com_github_grpc_grpc",  # Apache-2.0
-    sha256 = "9647220c699cea4dafa92ec0917c25c7812be51a18143af047e20f3fb05adddc",
-    strip_prefix = "grpc-1.43.0",
-    url = "https://github.com/grpc/grpc/archive/v1.43.0.tar.gz",
+    sha256 = "5071b630e2a14707ad060636990f1b25b0984bd168c7ea1ab95e48a3bdc0081f",
+    strip_prefix = "grpc-1.49.1",
+    url = "https://github.com/grpc/grpc/archive/v1.49.1.tar.gz",
 )
 
 http_archive(
@@ -83,14 +83,10 @@ http_archive(
 http_archive(
     name = "upb",  # BSD-3-Clause
     # Fix upb not building with --incompatible_disallow_empty_glob
-    patch_cmds = [
-        "sed -i '/google\\/\\*\\*\\/\\*/d' BUILD",
-        "sed -i '/tests\\/\\*\\*\\/\\*/d' BUILD",
-        "sed -i '/upbc\\/\\*\\*\\/\\*/d' BUILD",
-    ],
-    sha256 = "7c02096dceb6b1249feaf11e4531f6bf31b9abdbd2305038349d1f1749bf88ea",
-    strip_prefix = "upb-0e0de7d9f927aa888d9a0baeaf6576bbbb23bf0b",
-    url = "https://github.com/protocolbuffers/upb/archive/0e0de7d9f927aa888d9a0baeaf6576bbbb23bf0b.tar.gz",
+    patch_cmds = ["sed -i '/upbc\\/\\*\\*\\/\\*/d' BUILD"],
+    sha256 = "017a7e8e4e842d01dba5dc8aa316323eee080cd1b75986a7d1f94d87220e6502",
+    strip_prefix = "upb-e4635f223e7d36dfbea3b722a4ca4807a7e882e2",
+    url = "https://github.com/protocolbuffers/upb/archive/e4635f223e7d36dfbea3b722a4ca4807a7e882e2.tar.gz",
 )
 
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
